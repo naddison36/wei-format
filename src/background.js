@@ -14,6 +14,11 @@ chrome.runtime.onInstalled.addListener(() => {
         title: 'Unix Timestamp Converter',
         contexts: ['selection'],
     })
+    chrome.contextMenus.create({
+        id: 'fourByteConverter',
+        title: 'Function Signature Lookup',
+        contexts: ['selection'],
+    })
     chrome.storage.local.set({
         decimals: 18,
         displayDecimals: 18,
@@ -46,6 +51,14 @@ chrome.contextMenus.onClicked.addListener(function (info) {
         chrome.storage.local.set({
             selectedStr: preConverted,
             conversionType: 'unixTime',
+        })
+    }
+})
+chrome.contextMenus.onClicked.addListener(function (info) {
+    if (info.menuItemId === 'fourByteConverter') {
+        chrome.storage.local.set({
+            selectedStr: info.selectionText,
+            conversionType: 'fourByte',
         })
     }
 })

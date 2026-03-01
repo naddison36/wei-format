@@ -118,6 +118,14 @@ function convertUnix(preConverted) {
     }
 }
 
+async function lookupFourByte(hexSignature) {
+    const selector = hexSignature.replace(/^0x/i, '').toLowerCase()
+    const url = `https://www.4byte.directory/api/v1/signatures/?hex_signature=0x${selector}`
+    const response = await fetch(url)
+    const data = await response.json()
+    return data.results.map((r) => r.text_signature)
+}
+
 function converter(str, decimals, displayDecimals, type) {
     if (type === 'hex') {
         return convertWei(convertHex(str), decimals, displayDecimals)
@@ -133,4 +141,5 @@ module.exports = {
     convertHex,
     convertUnix,
     converter,
+    lookupFourByte,
 }

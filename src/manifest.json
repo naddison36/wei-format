@@ -7,6 +7,7 @@
     "default_popup": "popup.html"
   },
   "permissions": ["contextMenus", "storage", "activeTab"],
+  "host_permissions": ["https://www.4byte.directory/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"

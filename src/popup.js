@@ -1,10 +1,10 @@
-import { convertWei, convertHex, convertUnix } from './converters.js'
+import { convertWei, convertHex, convertUnix, lookupFourByte } from './converters.js'
 
 document.addEventListener('DOMContentLoaded', function () {
     let preConverted
     let conversionType
 
-    chrome.storage.local.get(['selectedStr', 'conversionType']).then((result) => {
+    chrome.storage.local.get(['selectedStr', 'conversionType']).then(async (result) => {
         preConverted = result.selectedStr
         conversionType = result.conversionType
 
@@ -27,6 +27,40 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(UTC)
             document.getElementById('convertedStr').textContent = currentTimeZone
             document.getElementById('convertedStr2').textContent = UTC
+        } else if (conversionType === 'fourByte') {
+            document.getElementById('decimalsForm').style.display = 'none'
+            const container = document.getElementById('convertedStr')
+            try {
+                const signatures = await lookupFourByte(preConverted)
+                if (signatures.length === 0) {
+                    container.textContent = 'No signatures found'
+                } else if (signatures.length === 1) {
+                    const label = document.createElement('p')
+                    label.className = 'signature-label'
+                    label.textContent = 'Function signature'
+                    const code = document.createElement('code')
+                    code.textContent = signatures[0]
+                    container.appendChild(label)
+                    container.appendChild(code)
+                } else {
+                    const label = document.createElement('p')
+                    label.className = 'signature-label'
+                    label.textContent = `${signatures.length} matching signatures`
+                    const ol = document.createElement('ol')
+                    ol.className = 'signature-list'
+                    for (const sig of signatures) {
+                        const li = document.createElement('li')
+                        const code = document.createElement('code')
+                        code.textContent = sig
+                        li.appendChild(code)
+                        ol.appendChild(li)
+                    }
+                    container.appendChild(label)
+                    container.appendChild(ol)
+                }
+            } catch {
+                container.textContent = 'Lookup failed'
+            }
         }
     })
 
