@@ -1,6 +1,16 @@
 ## Installation
 
-1. Clone or download this repository
+### Option A: Download pre-built artifact
+
+1. Go to the [Actions tab](../../actions) and open the latest **Build** workflow run
+2. Download the `chain-converters-<sha>` artifact from the **Artifacts** section and unzip it
+3. Open Chrome and navigate to `chrome://extensions`
+4. Enable "Developer mode" (toggle in the top-right corner)
+5. Click "Load unpacked" and select the unzipped folder
+
+### Option B: Build from source
+
+1. Clone this repository
 2. Install dependencies: `npm install`
 3. Build the extension: `npm run build`
 4. Open Chrome and navigate to `chrome://extensions`
@@ -51,3 +61,14 @@ Unix Time Converter
 
 - For example,
 - 1705320000 converts to Mon, 15 Jan 2024 12:00:00 GMT
+
+Function Signature Lookup
+
+- Select a 4-byte function selector on a web page (with or without `0x` prefix)
+- Right-click and hover over "Chain-Converters" then select "Function Signature Lookup"
+- Click the Chrome plug-in icon to view the result
+- Matching human-readable signatures are fetched from [4byte.directory](https://www.4byte.directory)
+- If multiple signatures share the same selector they are shown as a numbered list
+
+- For example,
+- `0xa9059cbb` looks up `transfer(address,uint256)`
