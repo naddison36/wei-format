@@ -21,12 +21,6 @@ The Chain-Converters extension will now appear in your Chrome toolbar — look f
 
 ![Chain-Converters icon](src/Logo256.png)
 
-## Running Tests
-
-```bash
-npm test
-```
-
 ## How to Use
 
 Wei to Eth
@@ -72,3 +66,9 @@ Function Signature Lookup
 
 - For example,
 - `0xa9059cbb` looks up `transfer(address,uint256)`
+
+## Running Tests
+
+```bash
+npm test
+```

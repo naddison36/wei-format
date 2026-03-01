@@ -77,7 +77,6 @@ describe('WEI Formatter', () => {
         expect(converter('-987654321', 18, 18, 'wei')).toEqual('-0.000,000,000,987,654,321')
     })
     test('hexedecimal', () => {
-
         expect(converter('DE0B6B3A7640000', 0, 0, 'hex')).toEqual('1,000,000,000,000,000,000')
         expect(converter('251f6de049726a02b300', 0, 0, 'hex')).toEqual(
             '175,307,326,341,362,540,000,000'
