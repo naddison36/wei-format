@@ -1,6 +1,6 @@
 {
   "name": "wei-format",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A chrome extension that converts blockchain numbers and timestamps",
   "scripts": {
     "clean": "rm -f dist/*",
