@@ -6,9 +6,9 @@ Wei to Eth
 - Right-click and hover over "Chain-Converters" then select "Wei to Eth"
 - Click the Chrome plug-in icon
 
-- Changing the the settings,
+- Changing the settings,
 - Decimals: "18" will divide the number by 18
-- Display Decimals: How may decimal places are shown
+- Display Decimals: How many decimal places are shown
 
 - For example,
 - 123423400000000000000000 wei with decimals 18 and display decimals 18 is converted to 123,423.400,000,000,000,000,000

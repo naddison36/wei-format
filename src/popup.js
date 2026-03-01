@@ -1,4 +1,4 @@
-const { convertWei, convertHex, convertUnix } = require('./converters')
+import { convertWei, convertHex, convertUnix } from './converters.js'
 
 document.addEventListener('DOMContentLoaded', function () {
     let preConverted

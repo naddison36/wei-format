@@ -1,83 +1,83 @@
 function convertWei(num, decimals, displayDecimals) {
     let str = BigInt(num).toString()
-    let wholeDigets
-    let smallDigets
+    let wholeDigits
+    let smallDigits
     let formattedNumb
-    let negitive
+    let negative
 
     if (str.charAt(0) === '-') {
         str = str.substring(1)
-        negitive = true
+        negative = true
     } else {
-        negitive = false
+        negative = false
     }
 
     if (str.length > decimals) {
-        wholeDigets = str.substring(0, str.length - decimals)
+        wholeDigits = str.substring(0, str.length - decimals)
 
         // Reverse the string for easier manipulation
-        wholeDigets = wholeDigets.split('').reverse().join('')
+        wholeDigits = wholeDigits.split('').reverse().join('')
 
         // Insert commas after every three characters
-        wholeDigets = wholeDigets.replace(/(\d{3})/g, '$1,')
+        wholeDigits = wholeDigits.replace(/(\d{3})/g, '$1,')
 
         // Remove trailing comma if present
-        if (wholeDigets.slice(-1) === ',') {
-            wholeDigets = wholeDigets.slice(0, -1)
+        if (wholeDigits.slice(-1) === ',') {
+            wholeDigits = wholeDigits.slice(0, -1)
         }
 
         // Reverse the string back to its original order
-        wholeDigets = wholeDigets.split('').reverse().join('')
+        wholeDigits = wholeDigits.split('').reverse().join('')
 
-        // selects only the deciamls
-        smallDigets = str.substring(str.length - decimals, str.length)
-        //truncating digets
-        smallDigets = smallDigets.substring(0, displayDecimals)
+        // selects only the decimals
+        smallDigits = str.substring(str.length - decimals, str.length)
+        //truncating digits
+        smallDigits = smallDigits.substring(0, displayDecimals)
         // Insert commas after every three characters
-        smallDigets = smallDigets.replace(/(\d{3})/g, '$1,')
+        smallDigits = smallDigits.replace(/(\d{3})/g, '$1,')
 
         // Remove trailing comma if present
-        if (smallDigets.slice(-1) === ',') {
-            smallDigets = smallDigets.slice(0, -1)
+        if (smallDigits.slice(-1) === ',') {
+            smallDigits = smallDigits.slice(0, -1)
         }
 
-        formattedNumb = wholeDigets + '.' + smallDigets
+        formattedNumb = wholeDigits + '.' + smallDigits
 
-        // Adds negitives back in
-        if (negitive == true) {
+        // Adds negatives back in
+        if (negative) {
             formattedNumb = '-' + formattedNumb
         }
 
-        // Remove trailing comma if present
+        // Remove trailing period if present
         if (formattedNumb.slice(-1) === '.') {
             formattedNumb = formattedNumb.slice(0, -1)
         }
 
         return formattedNumb
     } else {
-        // selects only the deciamls
-        smallDigets = str.substring(str.length - decimals, str.length)
-        //truncating digets
-        smallDigets = smallDigets.substring(0, displayDecimals)
+        // selects only the decimals
+        smallDigits = str.substring(str.length - decimals, str.length)
+        //truncating digits
+        smallDigits = smallDigits.substring(0, displayDecimals)
 
-        smallDigets = smallDigets.padStart(displayDecimals, '0')
+        smallDigits = smallDigits.padStart(displayDecimals, '0')
 
         // Insert commas after every three characters
-        smallDigets = smallDigets.replace(/(\d{3})/g, '$1,')
+        smallDigits = smallDigits.replace(/(\d{3})/g, '$1,')
 
         // Remove trailing comma if present
-        if (smallDigets.slice(-1) === ',') {
-            smallDigets = smallDigets.slice(0, -1)
+        if (smallDigits.slice(-1) === ',') {
+            smallDigits = smallDigits.slice(0, -1)
         }
 
-        formattedNumb = '0.' + smallDigets
+        formattedNumb = '0.' + smallDigits
 
-        // Adds negitives back in
-        if (negitive == true) {
+        // Adds negatives back in
+        if (negative) {
             formattedNumb = '-' + formattedNumb
         }
 
-        // Remove trailing comma if present
+        // Remove trailing period if present
         if (formattedNumb.slice(-1) === '.') {
             formattedNumb = formattedNumb.slice(0, -1)
         }
@@ -85,6 +85,7 @@ function convertWei(num, decimals, displayDecimals) {
         return formattedNumb
     }
 }
+
 function convertHex(preConverted) {
     let convertedStr = preConverted
     if (preConverted.length % 2) {
@@ -117,8 +118,19 @@ function convertUnix(preConverted) {
     }
 }
 
+function converter(str, decimals, displayDecimals, type) {
+    if (type === 'hex') {
+        return convertWei(convertHex(str), decimals, displayDecimals)
+    } else if (type === 'unixTime') {
+        return convertUnix(str)
+    } else {
+        return convertWei(str, decimals, displayDecimals)
+    }
+}
+
 module.exports = {
     convertWei,
     convertHex,
     convertUnix,
+    converter,
 }
