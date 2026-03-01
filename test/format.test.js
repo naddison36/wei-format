@@ -1,4 +1,4 @@
-const { converter } = require('../src/converters')
+const { converter, convertUnix } = require('../src/converters')
 
 describe('WEI Formatter', () => {
     test('large wei numbers', () => {
@@ -39,6 +39,10 @@ describe('WEI Formatter', () => {
         expect(converter('0', 18, 1, 'wei')).toEqual('0.0')
         expect(converter('0', 18, 4, 'wei')).toEqual('0.000,0')
         expect(converter('1', 0, 2, 'wei')).toEqual('1')
+        // str.length === decimals boundary: no whole part, full decimal pad
+        expect(converter('123456', 6, 6, 'wei')).toEqual('0.123,456')
+        // decimals = 0: no decimal part at all
+        expect(converter('0', 0, 0, 'wei')).toEqual('0')
     })
     test('large negitive numbers', () => {
         expect(converter('-1234567890123456789', 18, 18, 'wei')).toEqual(
@@ -73,13 +77,36 @@ describe('WEI Formatter', () => {
         expect(converter('-987654321', 18, 18, 'wei')).toEqual('-0.000,000,000,987,654,321')
     })
     test('hexedecimal', () => {
-        //expect(converter('10029ee0121f8dec22679987978', 0, 0, 'hex')).toEqual(
-        //    '20,295,386,218,748,455,875,047,348,271,480'
-        //)
-        // expect(converter('DE0B6B3A7640000', 0, 0, 'hex')).toEqual('1,000,000,000,000,000,000')
-        /*expect(converter('251f6de049726a02b300', 0, 0, 'hex')).toEqual(
+
+        expect(converter('DE0B6B3A7640000', 0, 0, 'hex')).toEqual('1,000,000,000,000,000,000')
+        expect(converter('251f6de049726a02b300', 0, 0, 'hex')).toEqual(
             '175,307,326,341,362,540,000,000'
-        )*/
-        // expect(parseInt('251f6de049726a02b300n', 16)).toEqual('175307326341362540000000')
+        )
+        expect(converter('10029ee0121f8dec22679987978', 0, 0, 'hex')).toEqual(
+            '20,295,386,218,748,455,875,047,348,271,480'
+        )
+        // odd-length hex gets '0' prepended internally
+        expect(converter('1', 0, 0, 'hex')).toEqual('1')
+        // hex → wei pipeline with non-zero decimals: DE0B6B3A7640000 = 1e18
+        expect(converter('DE0B6B3A7640000', 18, 4, 'hex')).toEqual('1.000,0')
+    })
+})
+
+describe('Unix time converter', () => {
+    test('epoch zero', () => {
+        const result = convertUnix(0)
+        expect(result.UTC).toEqual('Thu, 01 Jan 1970 00:00:00 GMT')
+        expect(typeof result.currentTimeZone).toBe('string')
+        expect(result.currentTimeZone.length).toBeGreaterThan(0)
+    })
+    test('known timestamp', () => {
+        // 2024-01-15 12:00:00 UTC = unix 1705320000
+        const result = convertUnix(1705320000)
+        expect(result.UTC).toEqual('Mon, 15 Jan 2024 12:00:00 GMT')
+    })
+    test('returns both fields', () => {
+        const result = convertUnix(1000000)
+        expect(result).toHaveProperty('currentTimeZone')
+        expect(result).toHaveProperty('UTC')
     })
 })
