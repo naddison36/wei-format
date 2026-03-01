@@ -7,7 +7,9 @@
 5. Enable "Developer mode" (toggle in the top-right corner)
 6. Click "Load unpacked" and select the `dist/` folder
 
-The Chain-Converters extension will now appear in your Chrome toolbar.
+The Chain-Converters extension will now appear in your Chrome toolbar — look for this icon:
+
+![Chain-Converters icon](src/Logo256.png)
 
 ## How to Use
 
