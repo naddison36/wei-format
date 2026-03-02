@@ -1,3 +1,7 @@
+# Chain-Converters
+
+A Chrome extension for blockchain developers that converts selected text via right-click context menus. Supports wei-to-ETH conversion, hexadecimal-to-decimal conversion, Unix timestamp formatting, and 4-byte function signature lookup.
+
 ## Installation
 
 ### Option A: Download pre-built artifact
@@ -64,8 +68,7 @@ Function Signature Lookup
 - Matching human-readable signatures are fetched from [4byte.directory](https://www.4byte.directory)
 - If multiple signatures share the same selector they are shown as a numbered list
 
-- For example,
-- `0xa9059cbb` looks up `transfer(address,uint256)`
+- For example, `0xa9059cbb` looks up `transfer(address,uint256)`
 
 ## Running Tests
 
