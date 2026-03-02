@@ -2,6 +2,17 @@
 
 A Chrome extension for blockchain developers that converts selected text via right-click context menus. Supports wei-to-ETH conversion, hexadecimal-to-decimal conversion, Unix timestamp formatting, and 4-byte function signature lookup.
 
+![Chain-Converters context menu](docs/Chain-Converters-screenshot.png)
+
+## Examples
+
+| Converter                 | Input                      | Output                            |
+| ------------------------- | -------------------------- | --------------------------------- |
+| Wei to ETH (decimals: 18) | `123423400000000000000000` | `123,423.400,000,000,000,000,000` |
+| Hex (decimals: 6)         | `ABCDEF00`                 | `2,882.400,000`                   |
+| Unix Timestamp            | `1705320000`               | `Mon, 15 Jan 2024 12:00:00 GMT`   |
+| Function Signature        | `0xa9059cbb`               | `transfer(address,uint256)`       |
+
 ## Installation
 
 ### Option A: Download pre-built artifact
